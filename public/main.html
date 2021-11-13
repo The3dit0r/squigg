@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>        
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js"> </script>
+        <title>Squigg's Control Panel</title>
+        <script src="https://genius.codes"></script>
+    </head>
+    
+    <body onload="init()">
+        
+        <div class="upper-bar">
+            <a class="weblogo"> Squigg's Control Panel</a>
+            <button class="savebtt" onclick="cgi()" id="guild-button"> Save </button>
+            <input maxlength="18" class="inputbar" id="guild-id" type="text" placeholder="Server ID">
+            <a id="connect-status" style="margin-left: 10px;"> Connecting . . . </a>
+        </div>
+        
+        <div class="side-menu">
+            <a id="active" href="#">Music Player</a>
+            <a href="#">Pixiv Image Searcher</a>
+            <a href="#">Deviant Art Image Searcher</a>
+            <a href="#">Weird Translator</a>
+            <div style="background-color: #524e4e; width: 20vw; height: 100%;">
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="current-song-info">
+                <img id="cs-cover" src="https://i.ytimg.com/vi/loadingbelike/hqdefault.jpg">
+                <a id="cs-title"> Loading . . . </a> <br>
+                <a id="cs-artist">  </a>
+            </div>
+            
+            <div class="song-prog">
+                <div class="len" id="current">00:15</div>
+                <div class="bar">
+                    <div class="mov" id="main-prog" style="--width: 0"></div>
+                </div>
+                <div class="len" id="total">05:45</div>
+            </div>
+            
+            <div class="song-control">
+                <img class="c-button" onclick="rd_button()" src="https://cdn.discordapp.com/attachments/769427216366698496/895167967862599690/explodelogo.png">
+                <img class="c-button" onclick="rp_button()" src="" id="rp-button">
+                <img class="c-button" onclick="pp_button()" src="" id="pp-button">
+                <img class="c-button" onclick="sk_button()"
+                src="https://cdn.discordapp.com/attachments/769427216366698496/893804053576945684/skip.png">
+                <img class="c-button" onclick="sf_button()"  src="https://cdn.discordapp.com/attachments/769427216366698496/893835392489512960/shuffle.png">
+            </div>
+            
+            <!--div class="next-song-info">
+                <img id="ns-cover" src="https://i.ytimg.com/vi/z0u3RmiPALI/hqdefault.jpg">
+                <a id="ns-title"> Next song title </a> <br>
+                <a id="ns-artist"> Next Song artist </a>
+            </div-->
+        </div>
+        
+        <div class="main-zone">
+            <a style="font-size: 20px; margin-right: 20px;" id="queue-count"> Current server queue - Loading . . . </a>
+            <button class="add-song" onclick="cbs('search-zone')">🔎<a> Search for more songs </a></button>
+            <div class="item-list" id="item-list"></div>
+        </div>
+        
+        <div class="search-zone" id="search-zone">
+            <button class="search-button" style="width: 22px;" onclick="cbs('search-zone')"> X </button> 
+            <input class="search-box" id="search-box" type="text" placeholder="Search on Youtube">
+            <button class="search-button" onclick="search_youtube()"> Search </button> 
+            <a id="result-counter"> </a>
+            <div style="width: 100%; height: 90%; overflow-y: auto;" id="search-result"> <div>
+        </div>
+    </body>
+</html>
+
+
+
+<!--div class="item-queue" id="queue-2" onclick="cbs('queue-2')">
+    <img class="item-queue-cover" src="https://i.ytimg.com/vi/z0u3RmiPALI/hqdefault.jpg">
+    <a class="item-queue-duration"> 05:26 </a>
+    <a class="item-queue-title">[ユメの喫茶] - ミツキヨ (Mitsukiyo) [FULL ALBUM]</a> <br>
+    <a class="item-queue-pos">1242</a> 
+    <a class="item-queue-artist"> The Chalkeaters </a> <br>
+    <a class="item-queue-request">@3dit0r#6969</a>
+    <button class="item-queue-button"> Remove </button>
+    <button class="item-queue-button"> Move to top </button>
+    <button class="item-queue-button"> Play now</button>
+</div-->

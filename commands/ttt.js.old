@@ -1,0 +1,143 @@
+/*const mergeImages       = require('merge-images');
+const { Canvas, Image } = require('canvas');
+const base64Img         = require('base64-img');
+//const Discord = 1;
+// 15 99 185
+// 252 82
+
+const pos = [{x: null, y:null}, 
+  {x: 15, y: 15}, {x: 99, y: 15}, {x: 185, y: 15},
+  {x: 15, y: 99}, {x: 99, y: 99}, {x: 185, y: 99},
+  {x: 15, y: 185}, {x: 99, y: 185}, {x: 185, y: 185}              
+]
+
+
+var playfield_container = -1;
+const dest = './data/tictactoe';
+const ttt_frame = dest + '/img/ttt-frame.png';
+const ttt_bsline = dest + '/img/ttt-bsline.png';
+const ttt_fsline = dest + '/img/ttt-fsline.png';
+const ttt_hzline = dest + '/img/ttt-hzline.png';
+const ttt_vtline = dest + '/img/ttt-vtline.png';
+const ttt_piece = [dest + '/img/ttt-o.png',dest + '/img/ttt-cross.png'];
+
+
+module.exports = {
+  name: 'ttt',
+  description: 'A tic-tac-toe script for Squigg',
+  async execute(message, args, cmd, client, Discord){
+    if (args[0] === 'init') initiate_playfield(Discord, message);
+    else if (args[0] === 'p') 
+      if (playfield_container === -1) 
+        return initiate_playfield(Discord, message);
+      update_playfield(Discord, message, args[1]);
+      
+    }
+  }
+  
+  
+
+const initiate_playfield = (Discord, message) => {
+  var field = [null, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+  var playfield_structure = {
+    field: field,
+    turn: 0,
+    message_id: -1
+  }
+
+  
+  mergeImages([ttt_frame], {Canvas: Canvas, Image: Image})
+  .then(data => {
+    base64Img.img(data, dest, `image1`, (err, filepath) => {
+      if (err) return console.log(err);
+      //console.log("Done: " + filepath);
+      message.channel.send({files: [filepath]}).then(msg => {
+        playfield_structure.message_id = msg;
+        playfield_container = playfield_structure;
+      });
+    });
+  });
+
+  //console.log(playfield_container);
+}
+
+const update_playfield = (Discord, message, square) => {
+  const square_id = parseInt(square);
+   
+  if (isNaN(square_id)) return console.log('Failed 1');                         // Check if input is a number
+  if ((square_id > 9)||(square_id < 1)) return console.log('Failed 2');         // Check if input is in range
+  if (playfield_container.field[square_id] !== -1) return console.log('Failed 3');     // Check if square is available
+
+  // Change square data
+  playfield_container.field[square] = playfield_container.turn;
+  // Change turn
+  playfield_container.turn = (playfield_container.turn === 0 ? 1:0);
+  
+  //Generate image
+  var generated_data = [{src: `${dest}/image${playfield_container.turn}.png`, x: 0, y: 0}];
+  var counter = 9;
+  for (let i = 1; i <= 9; i++){
+    if (playfield_container.field[i] === -1) {
+      counter--;
+      continue;
+    }
+    generated_data.push(
+      {
+        src: ttt_piece[playfield_container.field[i]],
+        x: pos[i].x, y: pos[i].y
+      }
+    );
+    //console.log(generated_data);
+  }
+
+  var n = playfield_container.field;
+  // Check win condition
+  if (n[1] === n[2] && n[2] === n[3] && n[3] !== -1){ 
+    // First row        
+    counter = 0;
+    generated_data.push({src: ttt_hzline, x: pos[1].x, y: pos[1].y});
+  } else if (n[4] === n[5] && n[5] === n[6] && n[6] !== -1){
+    // Second row
+    counter = 0;
+    generated_data.push({src: ttt_hzline, x: pos[4].x, y: pos[4].y});
+  } else if (n[7] === n[8] && n[8] === n[9] && n[9] !== -1){
+    // Third row
+    counter = 0;
+    generated_data.push({src: ttt_hzline, x: pos[7].x, y: pos[7].y});
+  } else if (n[1] === n[4] && n[4] === n[7] && n[7] !== -1){
+    // First column
+    counter = 0;
+    generated_data.push({src: ttt_vtline, x: pos[1].x, y: pos[1].y});
+  } else if (n[2] === n[5] && n[5] === n[8] && n[8] !== -1){
+    // Second column
+    counter = 0;
+    generated_data.push({src: ttt_vtline, x: pos[2].x, y: pos[2].y});
+  } else if (n[3] === n[6] && n[6] === n[9] && n[9] !== -1){
+    // Third column
+    counter = 0;
+    generated_data.push({src: ttt_vtline, x: pos[3].x, y: pos[3].y});
+  } else if (n[1] === n[5] && n[5] === n[9] && n[9] !== -1){
+    // Foreslash
+    counter = 0;
+    generated_data.push({src: ttt_bsline, x: pos[1].x, y: pos[1].y});
+  } else if (n[3] === n[5] && n[5] === n[7] && n[7] !== -1){
+    // Backslash
+    counter = 0;
+    generated_data.push({src: ttt_fsline, x: pos[1].x, y: pos[1].y});
+  } 
+
+  if (counter === 0) playfield_container = -1;
+  mergeImages(generated_data, {Canvas: Canvas, Image: Image})
+  .then(data => {
+    base64Img.img(data, dest, `image${playfield_container.turn === 1 ? 0:1}`, (err, filepath) => {
+      if (err) return console.log(err);
+      //console.log("Done: " + filepath);
+      playfield_container.message_id.delete();
+      message.channel.send((counter === 0 ? '***Match Ended***':''), {files: [filepath]}).then(msg => {
+        playfield_container.message_id = msg;
+      });
+      message.delete();
+    });
+  });
+}
+*/

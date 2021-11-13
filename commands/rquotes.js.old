@@ -1,0 +1,14 @@
+const request = require('request')
+const module_aliases = ['rq'];
+
+module.exports = {
+    name: "inspirobot",
+    aliases: module_aliases,
+    description: "fetch random bullshit from a quote creating bot",
+    async execute(message, args, cmd, client, Discord) {
+      request("https://inspirobot.me/api?generate=true", function (error, response, body) {
+            console.log(body);
+            message.channel.send(body);
+        }); 
+    }
+}
