@@ -1,0 +1,150 @@
+const chat10 = async(message) => {
+  message.channel.send('***Welcome to defuse the bomb ver 1.0!***')
+  message.channel.send('***Do you understand the rule?***')
+  var chat1 =1;
+};
+const chat200wtf = (message,d) => {
+  if (d === 'no'){
+    message.channel.send('***You have to defuse a bomb within 3 minutes.***')
+    message.channel.send('***Each bomb have a hidden formular.***')
+    message.channel.send('***You have to input a certain number to force that formular to spit out the exit code.***')
+    message.channel.send('***The code is 666 btw***')
+  } 
+  message.channel.send('***Welp, good luck then***')
+  var chat1 =-1; 
+  start(message);
+}
+const start =async(message) => {
+  message.channel.send('***planting the bomb...***')
+  message.channel.send('***initiate destruction sequences***')
+  var seed = rng(0,11);
+  message.channel.send('***cprocess completed***')
+  message.channel.send('***begining timer***')
+  var win = -1;
+  var timer = setTimeout(lose, 18000)
+  message.channel.send('***Squigg wish you good luck!***')
+  var game =1;
+}
+const lose = async(message) => {
+   message.channel.send('***The bomb exploded, you lost***')
+   message.channel.send('***playagain?***')
+   var chat3 =1;
+}
+const game1 = async(message,input) => {
+  switch(seed) {
+    case 1:
+    var output = input * 2
+    break;
+
+    case 2:
+    var output = input * 5 + 166
+    break;
+
+    case 3: 
+    var output = input + 256
+    break;
+
+    case 4: 
+    var output = input * 10 
+    break;
+
+    case 5: 
+    var output = input * 5 -6
+    break;
+
+    case 6: 
+    if (input % 2 === 1) {
+      var output = input/2
+    } else {
+      var output = (input+3)/2
+    }
+    break;
+
+    case 7: 
+    output = input * -1
+    break;
+    
+    case 8: 
+    var output = (input * -1) + 256
+    break;
+
+    case 9: 
+    if (input <0 ) {
+      var output = input * -5 
+    } else {
+      var output = input* input + input
+    }
+    break;
+
+    case 10: 
+    if (input === 666) {
+      var output = input
+    } else {
+      var output = input*5 -69
+    }
+    break;
+  }
+  message.channel.send(`***output: ${output} ***`)
+  if (output === 666){
+    message.channel.send('***you win, try again?***')
+    clearTimeout(timer);
+    var win = 1
+    var game =0
+    var chat3 =1;
+  }
+}
+
+/*  if (command === 'fuck'){
+  message.reply('you');
+} else if (command === 'random'){
+  message.channel.send(rng(rng(0,100), 100));
+} else if (command === 'sh'){
+
+  //shuffle();
+} else if (command === "chill"){
+  message.channel.send("!p https://www.youtube.com/playlist?list=PL35IHUdGqpFGjMvoQbrxPz339lVclJ_NP");
+  //shuffle();
+} else if (command === "rock"){
+  message.channel.send("!p https://www.youtube.com/playlist?list=PL35IHUdGqpFEAAhanWM7-Q8CCo_kVKF8Q");
+  //shuffle();
+} else */
+
+
+//.shift().toLowerCase()
+//const arg = .split(' ');
+//if (message.content.length > 20) return; 
+//if (message.content.split(' ').length != 1) return;
+
+ /*
+} else if (message.content.startsWith(prefix5) || message.content.startsWith(prefix6)){
+  var d = message.content.slice(prefix5.length)
+  if (d === 'start'){
+    chat10(message);
+  } else if (d === 'yes' || d === 'no') {
+    if (chat1 === 1) {
+      
+      chat200wtf(message,d);
+    }
+    if (chat3 === 1){
+      if (d === 'yes'){
+        chat3 =-1;
+        start(message);
+      } else {
+        message.channel.send("***Squigg thanks you for playing!***")
+      }
+    }
+    if (win === 1){
+      if (d === 'yes'){
+        win =-1;
+        start(message);
+      } else {
+        message.channel.send("***Squigg thanks you for playing!***")
+      }
+      
+    }
+  } else if (game === 1) {
+    var input = parseInt(message.content.slice(prefix5.length))
+    game1(message,input);
+  }
+}
+*/
